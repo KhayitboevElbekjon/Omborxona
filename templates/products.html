@@ -41,7 +41,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
+        <a href="/" class="nav-link">Home</a>
       </li>
     </ul>
 
@@ -78,13 +78,13 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header">Menu</li>
           <li class="nav-item">
-            <a href="stats" class="nav-link">
+            <a href="/Asosiy/stats" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Statistics</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/clients/" class="nav-link">
+            <a href="/Asosiy/client" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Clients</p>
             </a>
@@ -137,19 +137,27 @@
                             <th scope="col" style="width: 255px; text-align: center;">Nomi</th>
                             <th scope="col" style="text-align: center;">Brendi</th>
                             <th scope="col" style="text-align: center;">Narxi</th>
+                            <th scope="col" style="text-align: center;">Kelgan sana</th>
                             <th scope="col" style="text-align: center;">Miqdori</th>
+                            <th scope="col" style="text-align: center;">O'lchov</th>
+                            <th scope="col" style="text-align: center;">Ombor nomi</th>
                             <th scope="col" style="text-align: center;"></th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% for i in data %}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Un</td>
-                            <td>Qozoq Oliy navi</td>
-                            <td>530000 so'm</td>
-                            <td>50</td>
+                            <th scope="row">{{i.id}}</th>
+                            <td>{{i.nom}}</td>
+                            <td>{{i.brend}}</td>
+                            <td>{{i.narx}} so'm</td>
+                            <td>{{i.kelgan_sana}}</td>
+                            <td>{{i.miqdor}}</td>
+                            <td>{{i.ulchov}}</td>
+                            <td>{{i.ombor_fk}}</td>
                             <td><a href="#"><button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button></a></td>
                         </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

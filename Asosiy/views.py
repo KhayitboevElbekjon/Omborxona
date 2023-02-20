@@ -1,7 +1,7 @@
 from django.views import View
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,logout,login
-
+from .models import *
 
 class BulimView(View):
     def get(self,request):
@@ -14,7 +14,11 @@ class Cl_up_View(View):
 
 class ClientView(View):
     def get(self, request):
-        return render(request, 'clients.html')
+        ll=Client.objects.filter(ombor_fk__user=request.user)
+        data={
+            'data':ll
+        }
+        return render(request, 'clients.html',data)
 
 
 class HomeView(View):
@@ -40,7 +44,11 @@ class Pr_up_View(View):
 
 class ProductsView(View):
     def get(self, request):
-        return render(request, 'products.html')
+        kk=Mahsulot.objects.filter(ombor_fk__user=request.user)
+        data={
+            'data':kk
+        }
+        return render(request, 'products.html',data)
 
 class StatsView(View):
     def get(self, request):
