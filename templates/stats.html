@@ -7,7 +7,7 @@
   <title>statis</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'%}">
+  <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback' %}">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
   <!-- IonIcons -->
@@ -16,9 +16,9 @@
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
 
   <link rel="stylesheet" href="{% static 'https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' %}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="{% static 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js' %}"></script>
+  <script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js' %}"></script>
+  <script src="{% static 'https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js' %}"></script>
 
 </head>
 <!--
@@ -77,21 +77,20 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header">Menu</li>
-
           <li class="nav-item">
-            <a href="/Asosiy/stats" class="nav-link active">
+            <a href="/Asosiy2/statistika/" class="nav-link active">
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Statistics</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/Asosiy/client" class="nav-link">
+            <a href="/Asosiy/client/" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Clients</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/Asosiy/mahsulotlar" class="nav-link">
+            <a href="/Asosiy/mahsulotlar/" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Products</p>
             </a>
@@ -116,7 +115,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li class="breadcrumb-item active">Clients</li>
-                <li class="breadcrumb-item"><a href="#">Logout</a></li>
+                <li class="breadcrumb-item"><a href="">Logout</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -128,6 +127,10 @@
             <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Statistika qo'shish</button>
+                    <form>
+                        <input type="text" name="qidirish" placeholder="Qidirish...">
+                        <button type="submit" class="btn btn-primary" >Qidirish</button>
+                    </form>
                 </div>
             </div>
             <div class="card-body">
@@ -135,8 +138,8 @@
                     <thead>
                         <tr>
                             <th scope="col" style="width: 15px">T/r</th>
-                            <th scope="col" style="width: 255px; text-align: center;">Product</th>
-                            <th scope="col" style="text-align: center;">Client</th>
+                            <th scope="col" style="width: 255px; text-align: center;">Mahsulot nomi</th>
+                            <th scope="col" style="text-align: center;">Haridor</th>
                             <th scope="col" style="text-align: center;">Sana</th>
                             <th scope="col" style="text-align: center;">Miqdor</th>
                             <th scope="col" style="text-align: center;">Umumiy summa</th>
@@ -145,17 +148,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% for i in data2 %}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Product nomi, brend nomi</td>
-                            <td>Client ismi, do'koni nomi</td>
-                            <td>2022.06.13</td>
-                            <td>30</td>
-                            <td>1260000 so'm</td>
-                            <td>560000 so'm</td>
-                            <td>700000 so'm</td>
-                            <td><a href="#"><button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button></a></td>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{i.mahsulot.nom}}, {{i.mahsulot.brend}}</td>
+                            <td>{{i.client.ism}}, {{i.client.nom}}</td>
+                            <td>{{i.sana}}</td>
+                            <td>{{i.miqdor}}</td>
+                            <td>{{i.umumiy_summa}}</td>
+                            <td>{{i.tolandi}}</td>
+                            <td>{{i.nasiya}}</td>
+                            <td><a href="/Asosiy/{{i.id}}/"><button type="submit" class="btn btn-danger" data-toggle="modal">O'chirish</button></a></td>
                         </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -174,13 +179,16 @@
           </div>
     
           <!-- Modal body -->
-          <form action="#" id="new-product-form" method="post">{% csrf_token %}
+          <form id="new-product-form" method="post">{% csrf_token %}
             <div class="modal-body">
-              <label for="product">Product:</label>
-             <input type="datetime-local" name="sana" placeholder="Sana" id="product" class="form-control" required>
-                <br>
+              <label>Product:</label>
+                <select name="pr">
+                    {% for i in mahsulotlar %}
+                    <option value="{{i.id}}">{{i.nom}}. {{i.brend}}</option>
+                    {% endfor %}
+                </select>
               <label for="client">Client:</label>
-                <input type="datetime-local" name="sana" placeholder="Sana" id="client" class="form-control" required>
+                <input type="text" name="cl" placeholder="Client" id="client" class="form-control" required>
               <br>
               <label for="sana">Sana:</label>
               <input type="datetime-local" name="sana" placeholder="Sana" id="sana" class="form-control" required>
@@ -214,17 +222,17 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE -->
-<script src="dist/js/adminlte.js"></script>
+<script src="{% static 'dist/js/adminlte.js' %}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
+<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="{% static 'dist/js/demo.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard3.js"></script>
+<script src="{% static 'dist/js/pages/dashboard3.js' %}"></script>
 </body>
 </html>

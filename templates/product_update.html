@@ -56,23 +56,28 @@
           <!-- Modal Header -->
 
           <!-- Modal body -->
-          <form action="#" id="edit-product-form">
+          <form action="#" id="edit-product-form" method="post">
+              {% csrf_token %}
               <label for="edit-product-name">Mahsulot nomi:</label>
-              <input type="text" name="name" value="{{product.name}}" placeholder="Mahsulot nomi..." id="edit-product-name" class="form-control" required>
+              <input type="text" name="name" value="{{data.nom}}" placeholder="Mahsulot nomi..." id="edit-product-name" class="form-control" disabled>
                 <br>
               <label for="edit-product-name">Brend nomi:</label>
-              <input type="text" name="brand_name" value="{{product.brand_name}}" placeholder="Brend nomi..." id="edit-product-brend" class="form-control" required>
+              <input type="text" name="brand_name" value="{{data.brend}}" placeholder="Brend nomi..." id="edit-product-brend" class="form-control" disabled>
               <br>
               <label for="edit-product-name">Mahsulot narxi:</label>
-              <input type="number" name="price" value="{{product.price}}" placeholder="Mahsulot narxi..." id="edit-product-price" class="form-control" required>
+              <input type="number" name="price" value="{{data.narx}}" placeholder="Mahsulot narxi..." id="edit-product-price" class="form-control" required>
               <br>
-              <label for="edit-product-name">Dona qoldi:</label>
-              <input type="number" name="amount" value="{{product.remainder}}" placeholder="Dona qoldi..." id="edit-product-amount" class="form-control" required>
+              <label for="edit-product-name">Miqdori:</label>
+              <input type="number" name="miqdori" value="{{data.miqdor}}" placeholder="Dona qoldi..." id="edit-product-amount" class="form-control" required>
+              <br>
+                   <br>
+              <label for="edit-product-name">O'lchovi:</label>
+              <input type="text" name="ulchov" value="{{data.ulchov}}" placeholder="Dona qoldi..." id="edit-product-ulchov" class="form-control" disabled>
               <br>
 
           <!-- Modal footer -->
             <button type="submit" class="btn btn-success">Yangilash</button>
-            <a href="/goods/"><button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button></a>
+            <a href="/Asosiy/mahsulotlar"><button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button></a>
 
       </form>
 
@@ -83,17 +88,17 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE -->
-<script src="dist/js/adminlte.js"></script>
+<script src="{% static 'dist/js/adminlte.js' %}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
+<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="{% static 'dist/js/demo.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard3.js"></script>
+<script src="{% static 'dist/js/pages/dashboard3.js' %}"></script>
 </body>
 </html>
